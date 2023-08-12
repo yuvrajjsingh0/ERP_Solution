@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('frequency');
-            $table->int('price');
-            $table->string('description')->nullable();
+            $table->integer('price');
+            $table->text('description')->nullable();
             $table->string('meta')->nullable();
             $table->timestamps();
         });

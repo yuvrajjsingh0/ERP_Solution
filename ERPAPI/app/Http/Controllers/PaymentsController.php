@@ -18,6 +18,7 @@ class PaymentsController extends Controller
         $payment->mode = $request->mode;
         $payment->amount = $request->amount;
         $payment->meta = $request->meta;
+        $payment->package_id = $request->package_id;
         $payment->save();
 
         return response()->json([
@@ -44,6 +45,7 @@ class PaymentsController extends Controller
             $payment->mode = is_null($request->mode) ? $payment->mode : $request->mode;
             $payment->amount = is_null($request->amount) ? $payment->amount : $request->amount;
             $payment->meta = is_null($request->meta) ? $payment->meta : $request->meta;
+            $payment->package_id = is_null($request->package_id) ? $payment->package_id : $request->package_id;
             $payment->save();
 
             return response()->json([

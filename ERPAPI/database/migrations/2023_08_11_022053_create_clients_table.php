@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone_num');
-            $table->string('email');
-            $table->string('category');
-            $table->int('package_id');
+            $table->string('email')->nullable();
+            $table->string('category')->nullable();
+            $table->integer('package_id')->nullable();
             $table->timestamps();
         });
     }

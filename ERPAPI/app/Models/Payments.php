@@ -15,7 +15,8 @@ class Payments extends Model
         'client_id',
         'mode',
         'amount',
-        'meta'
+        'meta',
+        'package_id'
     ];
 
     function scopeLatest($query){
@@ -24,5 +25,9 @@ class Payments extends Model
 
     public function client(){
         return $this->belongsTo('App\Clients', 'client_id', 'id');
+    }
+
+    public function package(){
+        return $this->belongsTo('App\Packages', 'package_id', 'id');
     }
 }

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->int('worker_id');
             $table->string('mode');
-            $table->int('amount')->nullable();
+            $table->integer('amount')->nullable();
             $table->string('meta')->nullable();
             $table->timestamps();
         });

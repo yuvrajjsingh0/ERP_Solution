@@ -22,4 +22,8 @@ class Packages extends Model
     function scopeLatest($query){
         return $query->orderBy('created_at')->get();
     }
+
+    public function clients(){
+        return $this->hasMany('App\Clients', 'package_id', 'id');
+    }
 }

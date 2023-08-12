@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone_num')->nullable();
             $table->string('email')->nullable();
-            $table->int('salary')->nullable();
+            $table->integer('salary')->nullable();
             $table->string('frequency')->nullable();
             $table->timestamps();
         });

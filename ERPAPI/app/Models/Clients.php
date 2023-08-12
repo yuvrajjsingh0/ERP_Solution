@@ -15,6 +15,7 @@ class Clients extends Model
         'name',
         'phone_num',
         'email',
+        'package_id'
     ];
 
     function scopeLatest($query){
@@ -23,5 +24,9 @@ class Clients extends Model
 
     public function payments(){
         return $this->hasMany('App\Payments', 'client_id', 'id');
+    }
+
+    public function package(){
+        return $this->belongsTo('App\Packages', 'package_id', 'id');
     }
 }
