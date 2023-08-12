@@ -21,4 +21,8 @@ class Payments extends Model
     function scopeLatest($query){
         return $query->orderBy('created_at')->get();
     }
+
+    public function client(){
+        return $this->belongsTo('App\Clients', 'client_id', 'id');
+    }
 }
