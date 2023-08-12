@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class WorkersController extends Controller
 {
     public function index(){
-        $workers = Workers::all();
+        $workers = Workers::latest();
         return response()->json($workers);
     }
 
@@ -21,7 +21,8 @@ class WorkersController extends Controller
         $worker->save();
 
         return response()->json([
-            "message" => "Worker added successfully!"
+            "message" => "Worker added successfully!",
+            "id" => $worker->id
         ], 201);
     }
 

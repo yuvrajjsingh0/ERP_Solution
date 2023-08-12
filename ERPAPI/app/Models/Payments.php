@@ -17,4 +17,8 @@ class Payments extends Model
         'amount',
         'meta'
     ];
+
+    function scopeLatest($query){
+        return $query->orderBy('created_at')->get();
+    }
 }

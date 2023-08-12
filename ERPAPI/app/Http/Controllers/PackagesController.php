@@ -8,7 +8,7 @@ use App\Models\Packages;
 class PackagesController extends Controller
 {
     public function index(){
-        $packages = Packages::all();
+        $packages = Packages::latest();
         return response()->json($packages);
     }
 
@@ -22,7 +22,8 @@ class PackagesController extends Controller
         $package->save();
 
         return response()->json([
-            "message" => "Package added successfully!"
+            "message" => "Package added successfully!",
+            "id" => $package->id
         ], 201);
     }
 

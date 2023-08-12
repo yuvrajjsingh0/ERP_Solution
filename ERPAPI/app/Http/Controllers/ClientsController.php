@@ -8,7 +8,7 @@ use App\Models\Clients;
 class ClientsController extends Controller
 {
     public function index(){
-        $Clients = Clients::all();
+        $Clients = Clients::latest();
         return response()->json($Clients);
     }
 
@@ -20,7 +20,8 @@ class ClientsController extends Controller
         $client->save();
 
         return response()->json([
-            "message" => "Client added successfully!"
+            "message" => "Client added successfully!",
+            "id" => $client->id
         ], 201);
     }
 

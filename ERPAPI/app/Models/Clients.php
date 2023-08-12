@@ -16,4 +16,8 @@ class Clients extends Model
         'phone_num',
         'email',
     ];
+
+    function scopeLatest($query){
+        return $query->orderBy('created_at')->get();
+    }
 }

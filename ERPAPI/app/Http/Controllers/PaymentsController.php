@@ -8,7 +8,7 @@ use App\Models\Payments;
 class PaymentsController extends Controller
 {
     public function index(){
-        $payments = Payments::all();
+        $payments = Payments::latest();
         return response()->json($payments);
     }
 
@@ -21,7 +21,8 @@ class PaymentsController extends Controller
         $payment->save();
 
         return response()->json([
-            "message" => "Payment added successfully!"
+            "message" => "Payment added successfully!",
+            "id" => $payment->id
         ], 201);
     }
 

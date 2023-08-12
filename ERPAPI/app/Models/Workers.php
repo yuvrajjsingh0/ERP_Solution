@@ -18,4 +18,8 @@ class Workers extends Model
         'salary',
         'frequency'
     ];
+
+    function scopeLatest($query){
+        return $query->orderBy('created_at')->get();
+    }
 }

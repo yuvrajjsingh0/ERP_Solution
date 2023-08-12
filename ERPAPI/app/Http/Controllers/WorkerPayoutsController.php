@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class WorkerPayoutsController extends Controller
 {
     public function index(){
-        $workerPayouts = WorkerPayouts::all();
+        $workerPayouts = WorkerPayouts::latest();
         return response()->json($workerPayouts);
     }
 
@@ -20,7 +20,8 @@ class WorkerPayoutsController extends Controller
         $payout->save();
 
         return response()->json([
-            "message" => "Payout added successfully!"
+            "message" => "Payout added successfully!",
+            "id" => $payout->id
         ], 201);
     }
 

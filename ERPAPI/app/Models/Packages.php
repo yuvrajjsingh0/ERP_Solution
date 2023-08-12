@@ -18,4 +18,8 @@ class Packages extends Model
         'description',
         'meta'
     ];
+
+    function scopeLatest($query){
+        return $query->orderBy('created_at')->get();
+    }
 }
