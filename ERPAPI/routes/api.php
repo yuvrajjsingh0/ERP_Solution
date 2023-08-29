@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\PaymentsController;
+use App\Http\Controllers\PackagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +35,10 @@ Route::get('/payments/{id}', [PaymentsController::class, 'show']);
 Route::post('/payments', [PaymentsController::class, 'store']);
 Route::put('/payments/{id}', [PaymentsController::class, 'update']);
 Route::delete('/payments/{id}', [PaymentsController::class, 'destroy']);
+
+// Routes for Packages
+Route::get('/packages', [PackagesController::class, 'index']);
+Route::get('/packages/{id}', [PackagesController::class, 'show']);
+Route::post('/packages', [PackagesController::class, 'store']);
+Route::put('/packages/{id}', [PackagesController::class, 'update']);
+Route::delete('/packages/{id}', [PackagesController::class, 'destroy']);

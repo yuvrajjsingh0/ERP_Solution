@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('worker_payouts', function (Blueprint $table) {
             $table->id();
-            $table->int('worker_id');
+            $table->integer('worker_id');
             $table->string('mode');
             $table->integer('amount')->nullable();
             $table->string('meta')->nullable();

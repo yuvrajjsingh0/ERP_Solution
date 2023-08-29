@@ -8,7 +8,7 @@ use App\Models\Packages;
 class PackagesController extends Controller
 {
     public function index(){
-        $packages = Packages::latest();
+        $packages = Packages::latest()->get();
         return response()->json($packages);
     }
 
@@ -58,7 +58,7 @@ class PackagesController extends Controller
         }
     }
 
-    public function destroy(Request $request){
+    public function destroy($id){
         if(Packages::where('id', $id)->exists()){
             $package = Packages::find($id);
             $package->delete();

@@ -11,6 +11,8 @@ import { ClientsComponent } from './erp/clients/clients.component';
 import { PackagesComponent } from './erp/packages/packages.component';
 import { PaymentsComponent } from './erp/payments/payments.component';
 import { WorkersComponent } from './erp/workers/workers.component';
+import { HttpClientModule } from '@angular/common/http';
+import { DeleteModalComponent } from './erp/delete-modal/delete-modal.component';
 
 @NgModule({
   declarations: [
@@ -21,12 +23,14 @@ import { WorkersComponent } from './erp/workers/workers.component';
     ClientsComponent,
     PackagesComponent,
     PaymentsComponent,
-    WorkersComponent
+    WorkersComponent,
+    DeleteModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

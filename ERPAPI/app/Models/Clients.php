@@ -18,9 +18,9 @@ class Clients extends Model
         'package_id'
     ];
 
-    function scopeLatest($query){
-        return $query->orderBy('created_at')->get();
-    }
+    // public function scopeLatest($query){
+    //     return $query->orderBy('created_at')->get();
+    // }
 
     public function payments(){
         return $this->hasMany('App\Payments', 'client_id', 'id');
