@@ -10,6 +10,16 @@ export class ClientsService {
 
   constructor(private httpClient: HttpClient) { }
 
+  async getClient(id: string): Promise<Client>{
+    return new Promise((resolve, reject) => {
+      this.httpClient.get('http://localhost:8000/api/clients/'+id).subscribe((res) => {
+        resolve(res as Client);
+      }, (err)=> {
+        reject(err);
+      })
+    });
+  }
+
   async getClients(): Promise<Array<Client>>{
     return new Promise((resolve, reject) => {
       this.httpClient.get('http://localhost:8000/api/clients').subscribe((res) => {

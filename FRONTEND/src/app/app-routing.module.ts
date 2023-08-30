@@ -7,6 +7,7 @@ import { PaymentsComponent } from './erp/payments/payments.component';
 import { WorkersComponent } from './erp/workers/workers.component';
 import { ClientsComponent } from './erp/clients/clients.component';
 import { PackagesComponent } from './erp/packages/packages.component';
+import { ClientComponent } from './erp/client/client.component';
 
 const routes: Routes = [
   {path: 'auth', component: AuthenticationComponent},
@@ -14,6 +15,7 @@ const routes: Routes = [
     {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
     {path: 'dashboard', component: DashboardComponent},
     {path: 'clients', component: ClientsComponent},
+    {path: 'clients/:clientId', component: ClientComponent},
     {path: 'payments', component: PaymentsComponent},
     {path: 'workers', component: WorkersComponent},
     {path: 'packages', component: PackagesComponent}

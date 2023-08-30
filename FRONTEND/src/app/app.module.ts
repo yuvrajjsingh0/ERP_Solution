@@ -13,6 +13,7 @@ import { PaymentsComponent } from './erp/payments/payments.component';
 import { WorkersComponent } from './erp/workers/workers.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DeleteModalComponent } from './erp/delete-modal/delete-modal.component';
+import { ClientComponent } from './erp/client/client.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { DeleteModalComponent } from './erp/delete-modal/delete-modal.component'
     PackagesComponent,
     PaymentsComponent,
     WorkersComponent,
-    DeleteModalComponent
+    DeleteModalComponent,
+    ClientComponent
   ],
   imports: [
     BrowserModule,

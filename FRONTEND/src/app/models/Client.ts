@@ -1,10 +1,10 @@
 export default interface Client{
     id?: number;
-    name: String;
-    email: String;
-    phone_num: String;
-    category?: String;
+    name: string;
+    email: string;
+    phone_num: string;
+    category?: string;
     package_id?: number;
-    created_at?: String;
-    updated_at?: String;
+    created_at?: string;
+    updated_at?: string;
 }

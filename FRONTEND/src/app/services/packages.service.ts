@@ -9,6 +9,16 @@ export class PackagesService {
 
   constructor(private httpClient: HttpClient) { }
 
+  async getPackage(id: string): Promise<Package>{
+    return new Promise((resolve, reject) => {
+      this.httpClient.get('http://localhost:8000/api/packages/'+id).subscribe((res) => {
+        resolve(res as Package);
+      }, (err)=> {
+        reject(err);
+      })
+    });
+  }
+
   async getPackages(): Promise<Array<Package>>{
     return new Promise((resolve, reject) => {
       this.httpClient.get('http://localhost:8000/api/packages').subscribe((res) => {

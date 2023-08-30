@@ -17,6 +17,7 @@ class ClientsController extends Controller
         $client->name = $request->name;
         $client->phone_num = $request->phone_num;
         $client->email = $request->email;
+        $client->package_id = $request->package_id;
         $client->save();
 
         return response()->json([
@@ -42,6 +43,7 @@ class ClientsController extends Controller
             $client->name = is_null($request->name) ? $client->name : $request->name;
             $client->phone_num = is_null($request->phone_num) ? $client->phone_num : $request->phone_num;
             $client->email = is_null($request->email) ? $client->email : $request->email;
+            $client->package_id = is_null($request->package_id) ? $client->package_id : $request->package_id;
             $client->save();
 
             return response()->json([
@@ -54,7 +56,7 @@ class ClientsController extends Controller
         }
     }
 
-    public function destroy(Request $request){
+    public function destroy($id){
         if(Clients::where('id', $id)->exists()){
             $client = Clients::find($id);
             $client->delete();
