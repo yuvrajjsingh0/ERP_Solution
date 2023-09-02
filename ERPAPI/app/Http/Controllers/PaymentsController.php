@@ -7,8 +7,14 @@ use App\Models\Payments;
 
 class PaymentsController extends Controller
 {
-    public function index(){
-        $payments = Payments::latest();
+    public function index(Request $request){
+        $payments = null;
+        if($request->has('client') && $request->input('client') != ''){
+            info((int)$request->input('client'));
+            $payments = Payments::where('client_id', (int)$request->input('client'))->latest()->get();
+        }else{
+            $payments = Payments::latest()->get();
+        }
         return response()->json($payments);
     }
 

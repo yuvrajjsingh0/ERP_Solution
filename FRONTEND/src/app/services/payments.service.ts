@@ -9,9 +9,9 @@ export class PaymentsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  async getPayments(){
+  async getPayments(client: string = ''): Promise<Array<Payment>>{
     return new Promise((resolve, reject) => {
-      this.httpClient.get('http://localhost:8000/api/payments').subscribe((res) => {
+      this.httpClient.get('http://localhost:8000/api/payments?client='+client).subscribe((res) => {
         resolve((res as Array<Payment>));
       }, (err)=> {
         reject(err);

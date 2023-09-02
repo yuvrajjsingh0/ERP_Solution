@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\PackagesController;
+use App\Http\Controllers\ApiPassportAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,27 +19,34 @@ use App\Http\Controllers\PackagesController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::post('register', [ApiPassportAuthController::class, 'register']);
+Route::post('login', [ApiPassportAuthController::class, 'login']);
+
+Route::middleware('auth:api')->group(function () {
+
+    // Routes for Clients 
+    Route::get('/clients', [ClientsController::class, 'index']);
+    Route::get('/clients/{id}', [ClientsController::class, 'show']);
+    Route::post('/clients', [ClientsController::class, 'store']);
+    Route::put('/clients/{id}', [ClientsController::class, 'update']);
+    Route::delete('/clients/{id}', [ClientsController::class, 'destroy']);
+
+    // Routes for Payments 
+    Route::get('/payments', [PaymentsController::class, 'index']);
+    Route::get('/payments/{id}', [PaymentsController::class, 'show']);
+    Route::post('/payments', [PaymentsController::class, 'store']);
+    Route::put('/payments/{id}', [PaymentsController::class, 'update']);
+    Route::delete('/payments/{id}', [PaymentsController::class, 'destroy']);
+
+    // Routes for Packages
+    Route::get('/packages', [PackagesController::class, 'index']);
+    Route::get('/packages/{id}', [PackagesController::class, 'show']);
+    Route::post('/packages', [PackagesController::class, 'store']);
+    Route::put('/packages/{id}', [PackagesController::class, 'update']);
+    Route::delete('/packages/{id}', [PackagesController::class, 'destroy']);
+
 });
-
-// Routes for Clients 
-Route::get('/clients', [ClientsController::class, 'index']);
-Route::get('/clients/{id}', [ClientsController::class, 'show']);
-Route::post('/clients', [ClientsController::class, 'store']);
-Route::put('/clients/{id}', [ClientsController::class, 'update']);
-Route::delete('/clients/{id}', [ClientsController::class, 'destroy']);
-
-// Routes for Payments 
-Route::get('/payments', [PaymentsController::class, 'index']);
-Route::get('/payments/{id}', [PaymentsController::class, 'show']);
-Route::post('/payments', [PaymentsController::class, 'store']);
-Route::put('/payments/{id}', [PaymentsController::class, 'update']);
-Route::delete('/payments/{id}', [PaymentsController::class, 'destroy']);
-
-// Routes for Packages
-Route::get('/packages', [PackagesController::class, 'index']);
-Route::get('/packages/{id}', [PackagesController::class, 'show']);
-Route::post('/packages', [PackagesController::class, 'store']);
-Route::put('/packages/{id}', [PackagesController::class, 'update']);
-Route::delete('/packages/{id}', [PackagesController::class, 'destroy']);
