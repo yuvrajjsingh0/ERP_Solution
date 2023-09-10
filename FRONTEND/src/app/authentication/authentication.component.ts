@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-authentication',
@@ -11,12 +12,20 @@ export class AuthenticationComponent {
   userEmail: string = '';
   userPassword: string = '';
 
-  constructor(private router: Router){
+  constructor(
+    private router: Router,
+    private authService: AuthService){
 
   }
 
   signIn(){
     console.log("Logging in", this.userEmail, this.userPassword);
-    this.router.navigate(['erp']);
+
+    this.authService.login(this.userEmail, this.userPassword).then((res) => {
+      this.router.navigate(['erp'], { replaceUrl: true });
+    }).catch(err => {
+      console.log(err);
+    })
+    
   }
 }

@@ -1,18 +1,27 @@
 import { Injectable, resolveForwardRef } from '@angular/core';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import Client from '../models/Client';
+import { Storage } from './util/storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientsService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private httpClient: HttpClient,
+    private storage: Storage
+    ) { }
 
   async getClient(id: string): Promise<Client>{
+    let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.get('http://localhost:8000/api/clients/'+id).subscribe((res) => {
+      this.httpClient.get('http://localhost:8000/api/clients/'+id, {
+        headers: new HttpHeaders({
+          Authorization: "Bearer " + token
+        })
+      }).subscribe((res) => {
         resolve(res as Client);
       }, (err)=> {
         reject(err);
@@ -21,8 +30,13 @@ export class ClientsService {
   }
 
   async getClients(): Promise<Array<Client>>{
+    let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.get('http://localhost:8000/api/clients').subscribe((res) => {
+      this.httpClient.get('http://localhost:8000/api/clients', {
+        headers: new HttpHeaders({
+          Authorization: "Bearer " + token
+        })
+      }).subscribe((res) => {
         resolve((res as Array<Client>));
       }, (err)=> {
         reject(err);
@@ -31,8 +45,13 @@ export class ClientsService {
   }
 
   async putClient(client: Client){
+    let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.post('http://localhost:8000/api/clients', client).subscribe((res) => {
+      this.httpClient.post('http://localhost:8000/api/clients', client, {
+        headers: new HttpHeaders({
+          Authorization: "Bearer " + token
+        })
+      }).subscribe((res) => {
         resolve(res);
       }, (err) => {
         reject(err);
@@ -41,8 +60,13 @@ export class ClientsService {
   }
 
   async editClient(client: Client){
+    let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.put('http://localhost:8000/api/clients/'+client.id, client).subscribe((res) => {
+      this.httpClient.put('http://localhost:8000/api/clients/'+client.id, client, {
+        headers: new HttpHeaders({
+          Authorization: "Bearer " + token
+        })
+      }).subscribe((res) => {
         resolve(res);
       }, (err) => {
         reject(err);
@@ -51,8 +75,13 @@ export class ClientsService {
   }
 
   async deleteClient(clientId: number){
+    let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.delete('http://localhost:8000/api/clients/'+clientId).subscribe((res) => {
+      this.httpClient.delete('http://localhost:8000/api/clients/'+clientId, {
+        headers: new HttpHeaders({
+          Authorization: "Bearer " + token
+        })
+      }).subscribe((res) => {
         resolve(res);
       }, (err) => {
         reject(err);
