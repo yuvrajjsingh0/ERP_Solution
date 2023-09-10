@@ -8,10 +8,12 @@ import { WorkersComponent } from './erp/workers/workers.component';
 import { ClientsComponent } from './erp/clients/clients.component';
 import { PackagesComponent } from './erp/packages/packages.component';
 import { ClientComponent } from './erp/client/client.component';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
+  {path: '', redirectTo: 'erp', pathMatch: 'full'},
   {path: 'auth', component: AuthenticationComponent},
-  {path: 'erp', component: ErpComponent, children: [
+  {path: 'erp', component: ErpComponent, canActivate: [AuthGuard], children: [
     {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
     {path: 'dashboard', component: DashboardComponent},
     {path: 'clients', component: ClientsComponent},

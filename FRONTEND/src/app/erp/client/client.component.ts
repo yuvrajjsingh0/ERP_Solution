@@ -6,6 +6,7 @@ import Payment from 'src/app/models/Payment';
 import { ClientsService } from 'src/app/services/clients.service';
 import { PackagesService } from 'src/app/services/packages.service';
 import { PaymentsService } from 'src/app/services/payments.service';
+import { SessionStorageService } from 'src/app/services/util/session-storage.service';
 
 @Component({
   selector: 'app-client',
@@ -18,7 +19,9 @@ export class ClientComponent implements OnInit {
     private route: ActivatedRoute,
     private clientsService: ClientsService,
     private packageService: PackagesService,
-    private paymentsService: PaymentsService){}
+    private paymentsService: PaymentsService,
+    private sessStorage: SessionStorageService
+  ){}
 
   contentLoaded: number = 20;
 
@@ -48,6 +51,11 @@ export class ClientComponent implements OnInit {
   deletingRes = -1
 
   ngOnInit() {
+    try{
+      this.payments = this.sessStorage.getItem("payments");
+    }catch(err){
+      console.log("err", err);
+    }
     this.route.params.subscribe(async (params) => {
       console.log(params);
   
@@ -56,14 +64,43 @@ export class ClientComponent implements OnInit {
 
         this.paymentsService.getPayments(params['clientId']).then((res) => {
           this.payments = res;
+          this.sessStorage.setItem("payments", this.payments);
         }).catch(err => {
           console.log(err);
         });
 
-        this.client = await this.clientsService.getClient(params['clientId']);
-        this.contentLoaded = 50;
-        this.package = await this.packageService.getPackage(this.client?.package_id + '');
-        this.amount = '' + this.package.price;
+        let clients: Array<Client> = [];
+        try{
+          clients = this.sessStorage.getItem("clients");
+        }catch(err){
+          console.log(err);
+        }
+        let clientIdx = clients.findIndex((obj:Client) => obj.id == params['clientId']);
+        if(clientIdx != -1){
+          this.client = clients[clientIdx];
+        }
+
+        this.clientsService.getClient(params['clientId']).then((client) => {
+          this.client = client;
+          this.contentLoaded = 50;
+        }).catch(err => console.log(err));
+        
+        
+        try{
+          let packages = this.sessStorage.getItem("packages");
+          let packageIdx = packages.findIndex((obj:Package) => obj.id == this.client?.package_id);
+          if(packageIdx != -1){
+            this.package = packages[packageIdx];
+          }
+        }catch(err){
+          console.log(err);
+        }
+
+        this.packageService.getPackage(this.client?.package_id + '').then((packageRes) => {
+          this.package = packageRes;
+          this.contentLoaded = 100;
+        }).catch(err => console.log(err));
+        this.amount = '' + this.package?.price ?? 'NaN';
         this.contentLoaded = 100;
 
       }

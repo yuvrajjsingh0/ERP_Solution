@@ -3,6 +3,7 @@ import Client from 'src/app/models/Client';
 import Package from 'src/app/models/Package';
 import { ClientsService } from 'src/app/services/clients.service';
 import { PackagesService } from 'src/app/services/packages.service';
+import { SessionStorageService } from 'src/app/services/util/session-storage.service';
 
 @Component({
   selector: 'app-clients',
@@ -40,9 +41,17 @@ export class ClientsComponent implements OnInit {
 
   constructor(
     private clientsService: ClientsService,
-    private packagesService: PackagesService){}
+    private packagesService: PackagesService,
+    private sessStorage: SessionStorageService
+  ){}
 
   async ngOnInit(){
+    try{
+      this.clients = this.sessStorage.getItem("clients");
+      this.packages = this.sessStorage.getItem("packages");
+    }catch(err){
+      console.log("err", err);
+    }
     for(let i = 0; i < 5; i++){
       setTimeout(() => {
         this.contentLoaded += i*8;
@@ -57,6 +66,7 @@ export class ClientsComponent implements OnInit {
     this.clientsService.getClients().then((res) => {
       console.log(res);
       this.clients = res;
+      this.sessStorage.setItem("clients", this.clients);
       this.contentLoaded += 20;
     }).catch(err => {
       console.log(err);

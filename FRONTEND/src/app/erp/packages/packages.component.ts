@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import Package from 'src/app/models/Package';
 import { PackagesService } from 'src/app/services/packages.service';
+import { SessionStorageService } from 'src/app/services/util/session-storage.service';
 
 @Component({
   selector: 'app-packages',
@@ -33,12 +34,23 @@ export class PackagesComponent {
 
   formErrors: Array<string> = ['', '', ''];
 
-  constructor(private packageService: PackagesService){}
+  constructor(
+    private packageService: PackagesService,
+    private sessStorage: SessionStorageService
+  ){}
 
   ngOnInit(){
+    try{
+      this.packages = this.sessStorage.getItem("packages");
+    }catch(err){
+      this.packages = [];
+      console.log(err);
+    }
+
     this.packageService.getPackages().then((res) => {
       console.log(res);
       this.packages = res;
+      this.sessStorage.setItem("packages", this.packages);
     }).catch(err => {
       console.log(err);
     });

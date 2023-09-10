@@ -30,4 +30,13 @@ export class AuthService {
     });
   }
 
+  getAuthStatus(){
+    try{
+      this.storage.getItem("token");
+      return true;
+    }catch{
+      return false;
+    }
+  }
+
 }

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class Storage implements Storage {
+export class SessionStorageService implements Storage {
 
   constructor() { }
 
@@ -14,25 +14,24 @@ export class Storage implements Storage {
     throw new Error('Method not implemented.');
   }
 
-  public setItem(key: string, data: string): void {
-    localStorage.setItem(key, JSON.stringify(data));
+  public setItem(key: string, data: any): void {
+    sessionStorage.setItem(key, JSON.stringify(data));
   }
 
-  public getItem(key: string): string {
-    let item = localStorage.getItem(key);
+  public getItem(key: string): any {
+    let item = sessionStorage.getItem(key);
     if(item == null){
-      throw("Item not found");
+      throw("Item Not Found");
     }else{
       return JSON.parse(item);
     }
   }
 
   public removeItem(key: string): void {
-    localStorage.removeItem(key);
+    sessionStorage.removeItem(key);
   }
 
   public clear() {
-    localStorage.clear();
+    sessionStorage.clear();
   }
-
 }

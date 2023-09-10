@@ -12,7 +12,7 @@ export class ClientsService {
   constructor(
     private httpClient: HttpClient,
     private storage: Storage
-    ) { }
+  ) { }
 
   async getClient(id: string): Promise<Client>{
     let token = this.storage.getItem("token");

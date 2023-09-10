@@ -14,6 +14,7 @@ import { WorkersComponent } from './erp/workers/workers.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DeleteModalComponent } from './erp/delete-modal/delete-modal.component';
 import { ClientComponent } from './erp/client/client.component';
+import { AuthGuard } from './services/auth.guard';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { ClientComponent } from './erp/client/client.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -15,7 +15,7 @@ export class AuthenticationComponent {
   constructor(
     private router: Router,
     private authService: AuthService){
-
+      if(this.authService.getAuthStatus()) this.router.navigate(['erp'], { replaceUrl: true });
   }
 
   signIn(){
