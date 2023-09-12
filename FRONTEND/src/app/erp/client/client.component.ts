@@ -53,7 +53,7 @@ export class ClientComponent implements OnInit {
   ngOnInit() {
     try{
       this.payments = this.sessStorage.getItem("payments");
-    }catch(err){
+    }catch(err) {
       console.log("err", err);
     }
     this.route.params.subscribe(async (params) => {
@@ -106,6 +106,16 @@ export class ClientComponent implements OnInit {
       }
     });
   
+  }
+
+  loadMore(){
+    if(this.client != undefined){
+      this.paymentsService.getPayments(this.client.id + '').then((res) => {
+        this.payments = [...this.payments, ...res];
+      }).catch(err => {
+        console.log(err);
+      });
+    }
   }
 
   savePayment(){

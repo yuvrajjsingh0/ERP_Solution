@@ -29,15 +29,20 @@ export class ClientsService {
     });
   }
 
+  public nextLink: string = "http://localhost:8000/api/clients";
+  currentLink: string = "";
   async getClients(): Promise<Array<Client>>{
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.get('http://localhost:8000/api/clients', {
+      this.httpClient.get(this.nextLink, {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })
-      }).subscribe((res) => {
-        resolve((res as Array<Client>));
+      }).subscribe((res: any) => {
+        console.log(res);
+        this.currentLink = this.nextLink;
+        this.nextLink = res.next_page_url;
+        resolve((res.data as Array<Client>));
       }, (err)=> {
         reject(err);
       })

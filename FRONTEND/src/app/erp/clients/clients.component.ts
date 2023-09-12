@@ -73,6 +73,14 @@ export class ClientsComponent implements OnInit {
     });
   }
 
+  loadMore(){
+    this.clientsService.getClients().then((res) => {
+      this.clients = [...this.clients, ...res];
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+
   addNewClient(){
     this.isSaving = true;
     let client: Client = {

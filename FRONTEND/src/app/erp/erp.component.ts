@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-erp',
@@ -17,7 +18,9 @@ export class ErpComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute){}
+    private route: ActivatedRoute,
+    private authService: AuthService
+  ){}
 
   ngOnInit(){
     let selectedRoute = this.route.snapshot.firstChild?.routeConfig?.path ?? 'Dashboard';
@@ -31,6 +34,11 @@ export class ErpComponent implements OnInit {
       this.selected = selectedNav;
       this.router.navigate(['/erp/' + selectedNav.toLowerCase()]);
     }
+  }
+
+  logout(){
+    this.authService.logout();
+    this.router.navigate(['auth'], {replaceUrl: true});
   }
 
 }

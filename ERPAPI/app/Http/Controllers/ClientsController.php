@@ -8,7 +8,7 @@ use App\Models\Clients;
 class ClientsController extends Controller
 {
     public function index(Request $request){
-        $Clients = Clients::latest()->get();
+        $Clients = Clients::latest()->paginate(request()->all());
         return response()->json($Clients);
     }
 

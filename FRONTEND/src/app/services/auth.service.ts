@@ -39,4 +39,13 @@ export class AuthService {
     }
   }
 
+  logout(){
+    try{
+      this.storage.removeItem("token");
+      return true;
+    }catch{
+      return false;
+    }
+  }
+
 }
