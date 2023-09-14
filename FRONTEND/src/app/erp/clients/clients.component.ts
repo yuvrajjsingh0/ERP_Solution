@@ -37,6 +37,8 @@ export class ClientsComponent implements OnInit {
 
   formErrors: Array<string> = ['', '', '', ''];
 
+  nextPageUrl: string = "";
+
   clients: Array<Client> = [];
 
   constructor(
@@ -46,6 +48,7 @@ export class ClientsComponent implements OnInit {
   ){}
 
   async ngOnInit(){
+    this.clientsService.reset();
     try{
       this.clients = this.sessStorage.getItem("clients");
       this.packages = this.sessStorage.getItem("packages");
@@ -68,16 +71,22 @@ export class ClientsComponent implements OnInit {
       this.clients = res;
       this.sessStorage.setItem("clients", this.clients);
       this.contentLoaded += 20;
+      this.nextPageUrl = this.clientsService.nextLink;
     }).catch(err => {
       console.log(err);
     });
   }
 
+  isLoadingMore = false;
   loadMore(){
+    this.isLoadingMore = true;
     this.clientsService.getClients().then((res) => {
+      this.isLoadingMore = false;
       this.clients = [...this.clients, ...res];
+      this.nextPageUrl = this.clientsService.nextLink;
     }).catch(err => {
       console.log(err);
+      this.isLoadingMore = false;
     });
   }
 

@@ -51,6 +51,7 @@ export class ClientComponent implements OnInit {
   deletingRes = -1
 
   ngOnInit() {
+    
     try{
       this.payments = this.sessStorage.getItem("payments");
     }catch(err) {

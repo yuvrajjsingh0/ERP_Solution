@@ -39,14 +39,21 @@ export class ClientsService {
           Authorization: "Bearer " + token
         })
       }).subscribe((res: any) => {
-        console.log(res);
-        this.currentLink = this.nextLink;
-        this.nextLink = res.next_page_url;
-        resolve((res.data as Array<Client>));
+        if(res != null){
+          console.log(res);
+          this.currentLink = this.nextLink;
+          this.nextLink = res.next_page_url;
+          resolve((res.data as Array<Client>));
+        }
       }, (err)=> {
         reject(err);
       })
     });
+  }
+
+  reset(){
+    this.nextLink = "http://localhost:8000/api/clients";
+    this.currentLink = "";
   }
 
   async putClient(client: Client){
