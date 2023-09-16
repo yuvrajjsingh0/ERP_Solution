@@ -17,6 +17,8 @@ import { ClientComponent } from './erp/client/client.component';
 import { AuthGuard } from './services/auth.guard';
 import { NumberToKPipe } from './pipes/number-to-k.pipe';
 
+import {provideClientHydration} from '@angular/platform-browser';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +39,10 @@ import { NumberToKPipe } from './pipes/number-to-k.pipe';
     FormsModule,
     HttpClientModule
   ],
-  providers: [AuthGuard],
+  providers: [
+    provideClientHydration(),
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
