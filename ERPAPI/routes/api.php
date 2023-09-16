@@ -56,5 +56,7 @@ Route::middleware('auth:api')->group(function () {
     //Route::get('/insights', [PackagesController::class, 'index']);
     Route::get('/insights/totalNumberOfUsers', [InsightsController::class, 'totalNumberOfUsers']);
     Route::get('/insights/totalPayments', [InsightsController::class, 'totalPayments']);
+    Route::get('/insights/paymentsByWeek', [InsightsController::class, 'paymentsByWeek']);
+    Route::get('/insights/paymentsByMonth', [InsightsController::class, 'paymentsByMonth']);
 
 });
