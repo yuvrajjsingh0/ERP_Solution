@@ -23,10 +23,10 @@ class Clients extends Model
     // }
 
     public function payments(){
-        return $this->hasMany('App\Payments', 'client_id', 'id');
+        return $this->hasMany('App\Models\Payments', 'client_id', 'id');
     }
 
     public function package(){
-        return $this->belongsTo('App\Packages', 'package_id', 'id');
+        return $this->belongsTo('App\Models\Packages', 'package_id', 'id');
     }
 }

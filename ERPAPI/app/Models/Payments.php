@@ -24,10 +24,10 @@ class Payments extends Model
     }
 
     public function client(){
-        return $this->belongsTo('App\Clients', 'client_id', 'id');
+        return $this->belongsTo('App\Models\Clients', 'client_id', 'id');
     }
 
     public function package(){
-        return $this->belongsTo('App\Packages', 'package_id', 'id');
+        return $this->belongsTo('App\Models\Packages', 'package_id', 'id');
     }
 }

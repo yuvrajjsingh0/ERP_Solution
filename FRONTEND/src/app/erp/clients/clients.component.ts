@@ -41,6 +41,9 @@ export class ClientsComponent implements OnInit {
 
   clients: Array<Client> = [];
 
+  isSearching = false;
+  searchResults: Array<Client> = [];
+
   constructor(
     private clientsService: ClientsService,
     private packagesService: PackagesService,
@@ -48,6 +51,7 @@ export class ClientsComponent implements OnInit {
   ){}
 
   async ngOnInit(){
+    this.isSearching = false;
     this.clientsService.reset();
     try{
       this.clients = this.sessStorage.getItem("clients");
@@ -74,6 +78,19 @@ export class ClientsComponent implements OnInit {
       this.nextPageUrl = this.clientsService.nextLink;
     }).catch(err => {
       console.log(err);
+    });
+
+    this.clientsService.search$.subscribe((res) => {
+      if(res != undefined){
+        this.isSearching = true;
+        this.searchResults = res;
+      }else{
+        this.isSearching = false;
+        this.searchResults = [];
+      }
+    }, (error) => {
+      this.isSearching = false;
+      this.searchResults = [];
     });
   }
 

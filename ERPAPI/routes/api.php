@@ -30,6 +30,7 @@ Route::middleware('auth:api')->group(function () {
 
     // Routes for Clients 
     Route::get('/clients', [ClientsController::class, 'index']);
+    Route::get('/clients/search', [ClientsController::class, 'search']);
     Route::get('/clients/{id}', [ClientsController::class, 'show']);
     Route::post('/clients', [ClientsController::class, 'store']);
     Route::put('/clients/{id}', [ClientsController::class, 'update']);
@@ -37,6 +38,7 @@ Route::middleware('auth:api')->group(function () {
 
     // Routes for Payments 
     Route::get('/payments', [PaymentsController::class, 'index']);
+    Route::get('/payments/search', [PaymentsController::class, 'search']);
     Route::get('/payments/{id}', [PaymentsController::class, 'show']);
     Route::post('/payments', [PaymentsController::class, 'store']);
     Route::put('/payments/{id}', [PaymentsController::class, 'update']);

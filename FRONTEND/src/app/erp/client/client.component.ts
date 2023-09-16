@@ -63,7 +63,7 @@ export class ClientComponent implements OnInit {
       if (params['clientId']) { 
         console.log(params['clientId']);
 
-        this.paymentsService.getPayments(params['clientId']).then((res) => {
+        this.paymentsService.getPaymentsClient(params['clientId']).then((res) => {
           this.payments = res;
           this.sessStorage.setItem("payments", this.payments);
         }).catch(err => {
@@ -78,13 +78,17 @@ export class ClientComponent implements OnInit {
         }
         let clientIdx = clients.findIndex((obj:Client) => obj.id == params['clientId']);
         if(clientIdx != -1){
+          console.log(this.client);
           this.client = clients[clientIdx];
         }
 
-        this.clientsService.getClient(params['clientId']).then((client) => {
-          this.client = client;
-          this.contentLoaded = 50;
-        }).catch(err => console.log(err));
+        if(this.client == undefined){
+          await this.clientsService.getClient(params['clientId']).then((client) => {
+            this.client = client;
+            console.log(client)
+            this.contentLoaded = 50;
+          }).catch(err => console.log(err));
+        }
         
         
         try{
@@ -111,7 +115,7 @@ export class ClientComponent implements OnInit {
 
   loadMore(){
     if(this.client != undefined){
-      this.paymentsService.getPayments(this.client.id + '').then((res) => {
+      this.paymentsService.getPaymentsClient(this.client.id + '').then((res) => {
         this.payments = [...this.payments, ...res];
       }).catch(err => {
         console.log(err);

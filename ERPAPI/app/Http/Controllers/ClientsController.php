@@ -70,4 +70,21 @@ class ClientsController extends Controller
             ], 404);
         }
     }
+
+    public function search(Request $request){
+        $clients = null;
+        if($request->has('q') && $request->input('q') != ''){
+            info($request->input('q'));
+            $q = $request->input('q');
+            $clients = Clients::where('name', 'like', '%' . $q . '%')
+            ->orWhere('email', 'like', '%' . $q . '%')
+            ->orWhere('phone_num', 'like', '%' . $q . '%')
+            ->orWhereHas('package', function($query) use($q){
+                $query->where('name', 'like', '%' . $q . '%');
+            })->with('package')->latest()->get();
+        }else{
+            $clients = Clients::with('client')->with('package')->latest()->paginate(10);
+        }
+        return response()->json($clients);
+    }
 }

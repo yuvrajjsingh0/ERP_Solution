@@ -18,16 +18,32 @@ export class PaymentsComponent implements OnInit {
     success: '',
     failure: ''
   };
+  nextPageUrl = '';
 
   constructor(
     private paymentsService: PaymentsService
   ){}
 
   ngOnInit() {
+    this.paymentsService.reset()
     this.paymentsService.getPayments().then((res) => {
       this.payments = res;
+      this.nextPageUrl = this.paymentsService.nextLink;
     }).catch(err => {
       console.log(err);
+    });
+  }
+
+  isLoadingMore = false;
+  loadMore(){
+    this.isLoadingMore = true;
+    this.paymentsService.getPayments().then((res) => {
+      this.isLoadingMore = false;
+      this.payments = [...this.payments, ...res];
+      this.nextPageUrl = this.paymentsService.nextLink;
+    }).catch(err => {
+      console.log(err);
+      this.isLoadingMore = false;
     });
   }
 
