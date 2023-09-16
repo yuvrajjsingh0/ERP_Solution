@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\PackagesController;
+use App\Http\Controllers\InsightsController;
 use App\Http\Controllers\ApiPassportAuthController;
 
 /*
@@ -50,5 +51,10 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/packages', [PackagesController::class, 'store']);
     Route::put('/packages/{id}', [PackagesController::class, 'update']);
     Route::delete('/packages/{id}', [PackagesController::class, 'destroy']);
+
+    // Routes for Insights
+    //Route::get('/insights', [PackagesController::class, 'index']);
+    Route::get('/insights/totalNumberOfUsers', [InsightsController::class, 'totalNumberOfUsers']);
+    Route::get('/insights/totalPayments', [InsightsController::class, 'totalPayments']);
 
 });

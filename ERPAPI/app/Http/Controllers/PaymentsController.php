@@ -10,7 +10,6 @@ class PaymentsController extends Controller
     public function index(Request $request){
         $payments = null;
         if($request->has('client') && $request->input('client') != ''){
-            info((int)$request->input('client'));
             $payments = Payments::where('client_id', (int)$request->input('client'))->with('package')->latest()->get();
         }else{
             $payments = Payments::with('client')->with('package')->latest()->paginate(10);
@@ -82,7 +81,6 @@ class PaymentsController extends Controller
     public function search(Request $request){
         $payments = null;
         if($request->has('q') && $request->input('q') != ''){
-            info($request->input('q'));
             $q = $request->input('q');
             $payments = Payments::where('mode', 'like', '%' . $q . '%')
             ->orWhere('meta', 'like', '%' . $q . '%')

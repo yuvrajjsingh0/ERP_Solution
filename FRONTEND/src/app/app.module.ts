@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DeleteModalComponent } from './erp/delete-modal/delete-modal.component';
 import { ClientComponent } from './erp/client/client.component';
 import { AuthGuard } from './services/auth.guard';
+import { NumberToKPipe } from './pipes/number-to-k.pipe';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { AuthGuard } from './services/auth.guard';
     PaymentsComponent,
     WorkersComponent,
     DeleteModalComponent,
-    ClientComponent
+    ClientComponent,
+    NumberToKPipe
   ],
   imports: [
     BrowserModule,

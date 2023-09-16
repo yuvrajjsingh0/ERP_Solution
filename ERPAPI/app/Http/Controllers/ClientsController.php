@@ -74,7 +74,6 @@ class ClientsController extends Controller
     public function search(Request $request){
         $clients = null;
         if($request->has('q') && $request->input('q') != ''){
-            info($request->input('q'));
             $q = $request->input('q');
             $clients = Clients::where('name', 'like', '%' . $q . '%')
             ->orWhere('email', 'like', '%' . $q . '%')
