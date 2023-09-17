@@ -18,6 +18,7 @@ import { DeleteModalComponent } from './erp/delete-modal/delete-modal.component'
 import { ClientComponent } from './erp/client/client.component';
 import { AuthGuard } from './services/auth.guard';
 import { NumberToKPipe } from './pipes/number-to-k.pipe';
+import { WorkerPayoutsComponent } from './erp/worker-payouts/worker-payouts.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { NumberToKPipe } from './pipes/number-to-k.pipe';
     WorkersComponent,
     DeleteModalComponent,
     ClientComponent,
-    NumberToKPipe
+    NumberToKPipe,
+    WorkerPayoutsComponent
   ],
   imports: [
     BrowserModule,

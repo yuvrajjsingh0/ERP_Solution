@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Workers;
 
 class WorkersController extends Controller
 {
     public function index(){
-        $workers = Workers::latest();
+        $workers = Workers::latest()->get();
         return response()->json($workers);
     }
 
@@ -57,7 +58,7 @@ class WorkersController extends Controller
         }
     }
 
-    public function destroy(Request $request){
+    public function destroy(Request $request, $id){
         if(Workers::where('id', $id)->exists()){
             $worker = Workers::find($id);
             $worker->delete();

@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\PackagesController;
+use App\Http\Controllers\WorkersController;
+use App\Http\Controllers\WorkerPayoutsController;
 use App\Http\Controllers\InsightsController;
 use App\Http\Controllers\ApiPassportAuthController;
 
@@ -51,6 +53,20 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/packages', [PackagesController::class, 'store']);
     Route::put('/packages/{id}', [PackagesController::class, 'update']);
     Route::delete('/packages/{id}', [PackagesController::class, 'destroy']);
+
+    // Routes for Workers
+    Route::get('/workers', [WorkersController::class, 'index']);
+    Route::get('/workers/{id}', [WorkersController::class, 'show']);
+    Route::post('/workers', [WorkersController::class, 'store']);
+    Route::put('/workers/{id}', [WorkersController::class, 'update']);
+    Route::delete('/workers/{id}', [WorkersController::class, 'destroy']);
+
+    // Routes for Workers
+    Route::get('/worker-payouts', [WorkerPayoutsController::class, 'index']);
+    Route::get('/worker-payouts/{id}', [WorkerPayoutsController::class, 'show']);
+    Route::post('/worker-payouts', [WorkerPayoutsController::class, 'store']);
+    Route::put('/worker-payouts/{id}', [WorkerPayoutsController::class, 'update']);
+    Route::delete('/worker-payouts/{id}', [WorkerPayoutsController::class, 'destroy']);
 
     // Routes for Insights
     //Route::get('/insights', [PackagesController::class, 'index']);

@@ -3,11 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\WorkerPayouts;
 
 class WorkerPayoutsController extends Controller
 {
-    public function index(){
-        $workerPayouts = WorkerPayouts::latest();
+    public function index(Request $request){
+        $workerPayouts = null;
+        if($request->has('worker') && $request->input('worker') != ''){
+            $workerPayouts = WorkerPayouts::where('worker_id', (int)$request->input('worker'))->latest()->get();
+        }else{
+            $workerPayouts = WorkerPayouts::latest()->get();
+        }
         return response()->json($workerPayouts);
     }
 
@@ -55,7 +61,7 @@ class WorkerPayoutsController extends Controller
         }
     }
 
-    public function destroy(Request $request){
+    public function destroy(Request $request, $id){
         if(WorkerPayouts::where('id', $id)->exists()){
             $payout = WorkerPayouts::find($id);
             $payout->delete();

@@ -9,6 +9,7 @@ import { ClientsComponent } from './erp/clients/clients.component';
 import { PackagesComponent } from './erp/packages/packages.component';
 import { ClientComponent } from './erp/client/client.component';
 import { AuthGuard } from './services/auth.guard';
+import { WorkerPayoutsComponent } from './erp/worker-payouts/worker-payouts.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'erp', pathMatch: 'full'},
@@ -20,6 +21,7 @@ const routes: Routes = [
     {path: 'clients/:clientId', component: ClientComponent},
     {path: 'payments', component: PaymentsComponent},
     {path: 'workers', component: WorkersComponent},
+    {path: 'workers/:workerId', component: WorkerPayoutsComponent},
     {path: 'packages', component: PackagesComponent}
   ]}
 ];

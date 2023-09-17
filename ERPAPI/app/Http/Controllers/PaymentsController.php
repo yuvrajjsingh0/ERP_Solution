@@ -63,7 +63,7 @@ class PaymentsController extends Controller
         }
     }
 
-    public function destroy(Request $request){
+    public function destroy(Request $request, $id){
         if(Payments::where('id', $id)->exists()){
             $payment = Payments::find($id);
             $payment->delete();
