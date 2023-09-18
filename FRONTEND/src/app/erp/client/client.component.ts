@@ -50,13 +50,15 @@ export class ClientComponent implements OnInit {
 
   deletingRes = -1
 
+  nextPageUrl = '';
+
   ngOnInit() {
-    
-    try{
-      this.payments = this.sessStorage.getItem("payments");
-    }catch(err) {
-      console.log("err", err);
-    }
+    this.paymentsService.reset();
+    // try{
+    //   this.payments = this.sessStorage.getItem("payments");
+    // }catch(err) {
+    //   console.log("err", err);
+    // }
     this.route.params.subscribe(async (params) => {
       console.log(params);
   
@@ -66,6 +68,7 @@ export class ClientComponent implements OnInit {
         this.paymentsService.getPaymentsClient(params['clientId']).then((res) => {
           this.payments = res;
           this.sessStorage.setItem("payments", this.payments);
+          this.nextPageUrl = this.paymentsService.nextLink;
         }).catch(err => {
           console.log(err);
         });
@@ -113,12 +116,17 @@ export class ClientComponent implements OnInit {
   
   }
 
+  isLoadingMore = false;
   loadMore(){
+    this.isLoadingMore = true;
     if(this.client != undefined){
       this.paymentsService.getPaymentsClient(this.client.id + '').then((res) => {
         this.payments = [...this.payments, ...res];
+        this.isLoadingMore = false;
+        this.nextPageUrl = this.paymentsService.nextLink;
       }).catch(err => {
         console.log(err);
+        this.isLoadingMore = false;
       });
     }
   }
