@@ -25,6 +25,7 @@ export class AuthenticationComponent {
       this.router.navigate(['erp'], { replaceUrl: true });
     }).catch(err => {
       console.log(err);
+      alert("Check your credentials")
     })
     
   }

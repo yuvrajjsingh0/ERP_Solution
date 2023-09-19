@@ -16,7 +16,7 @@ export class WorkersService {
   async getWorker(id: string): Promise<Worker>{
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.get('http://localhost:8000/api/workers/'+id, {
+      this.httpClient.get('http://api.rohitshukla.hexane.co.in/api/workers/'+id, {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })
@@ -34,7 +34,7 @@ export class WorkersService {
   async getWorkers(): Promise<Array<Worker>>{
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.get('http://localhost:8000/api/workers/', {
+      this.httpClient.get('http://api.rohitshukla.hexane.co.in/api/workers', {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })
@@ -52,7 +52,7 @@ export class WorkersService {
   async putWorker(worker: Worker){
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.post('http://localhost:8000/api/workers', worker, {
+      this.httpClient.post('http://api.rohitshukla.hexane.co.in/api/workers', worker, {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })
@@ -67,7 +67,7 @@ export class WorkersService {
   async editWorker(worker: Worker){
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.put('http://localhost:8000/api/workers/'+worker.id, worker, {
+      this.httpClient.put('http://api.rohitshukla.hexane.co.in/api/workers/'+worker.id, worker, {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })
@@ -82,7 +82,7 @@ export class WorkersService {
   async deleteWorker(workerId: number){
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.delete('http://localhost:8000/api/workers/'+workerId, {
+      this.httpClient.delete('http://api.rohitshukla.hexane.co.in/api/workers/'+workerId, {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })

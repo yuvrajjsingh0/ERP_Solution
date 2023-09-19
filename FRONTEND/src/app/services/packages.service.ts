@@ -15,7 +15,7 @@ export class PackagesService {
   async getPackage(id: string): Promise<Package>{
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.get('http://localhost:8000/api/packages/'+id, {
+      this.httpClient.get('http://api.rohitshukla.hexane.co.in/api/packages/'+id, {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })
@@ -30,7 +30,7 @@ export class PackagesService {
   async getPackages(): Promise<Array<Package>>{
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.get('http://localhost:8000/api/packages', {
+      this.httpClient.get('http://api.rohitshukla.hexane.co.in/api/packages', {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })
@@ -45,7 +45,7 @@ export class PackagesService {
   async putPackage(packageT: Package){
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.post('http://localhost:8000/api/packages', packageT, {
+      this.httpClient.post('http://api.rohitshukla.hexane.co.in/api/packages', packageT, {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })
@@ -60,7 +60,7 @@ export class PackagesService {
   async editPackage(packageT: Package){
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.put('http://localhost:8000/api/packages/'+packageT.id, packageT, {
+      this.httpClient.put('http://api.rohitshukla.hexane.co.in/api/packages/'+packageT.id, packageT, {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })
@@ -75,7 +75,7 @@ export class PackagesService {
   async deletePackage(packageId: number){
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.delete('http://localhost:8000/api/packages/'+packageId, {
+      this.httpClient.delete('http://api.rohitshukla.hexane.co.in/api/packages/'+packageId, {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })
