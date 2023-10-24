@@ -19,11 +19,11 @@ export class PaymentsService {
   ) { }
 
   reset(){
-    this.nextLink = "http://api.rohitshukla.hexane.co.in/api/payments";
+    this.nextLink = "http://localhost:8000/api/payments";
     this.currentLink = "";
   }
 
-  public nextLink: string = "http://api.rohitshukla.hexane.co.in/api/payments";
+  public nextLink: string = "http://localhost:8000/api/payments";
   currentLink: string = "";
   async getPayments(): Promise<Array<Payment>>{
     let token = this.storage.getItem("token");
@@ -48,7 +48,7 @@ export class PaymentsService {
   async getPaymentsClient(client: string = ''): Promise<Array<Payment>>{
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.get('http://api.rohitshukla.hexane.co.in/api/payments?client='+client, {
+      this.httpClient.get('http://localhost:8000/api/payments?client='+client, {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })
@@ -63,7 +63,7 @@ export class PaymentsService {
   async putPayment(payment: Payment){
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.post('http://api.rohitshukla.hexane.co.in/api/payments', payment, {
+      this.httpClient.post('http://localhost:8000/api/payments', payment, {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })
@@ -78,7 +78,7 @@ export class PaymentsService {
   async editPayment(payment: Payment){
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.put('http://api.rohitshukla.hexane.co.in/api/payments/'+payment.id, payment, {
+      this.httpClient.put('http://localhost:8000/api/payments/'+payment.id, payment, {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })
@@ -93,7 +93,7 @@ export class PaymentsService {
   async deletePayment(paymentId: number){
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.delete('http://api.rohitshukla.hexane.co.in/api/payments/'+paymentId, {
+      this.httpClient.delete('http://localhost:8000/api/payments/'+paymentId, {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })
@@ -108,7 +108,7 @@ export class PaymentsService {
   async searchPayments(query: string): Promise<Array<Payment>>{
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.get('http://api.rohitshukla.hexane.co.in/api/payments/search?q=' + query, {
+      this.httpClient.get('http://localhost:8000/api/payments/search?q=' + query, {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })

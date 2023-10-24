@@ -33,7 +33,7 @@ import { WorkerPayoutsComponent } from './erp/worker-payouts/worker-payouts.comp
     DeleteModalComponent,
     ClientComponent,
     NumberToKPipe,
-    WorkerPayoutsComponent
+    WorkerPayoutsComponent,
   ],
   imports: [
     BrowserModule,

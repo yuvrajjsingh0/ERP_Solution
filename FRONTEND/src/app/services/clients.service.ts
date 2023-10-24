@@ -22,7 +22,7 @@ export class ClientsService {
   async getClient(id: string): Promise<Client>{
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.get('http://api.rohitshukla.hexane.co.in/api/clients/'+id, {
+      this.httpClient.get('http://localhost:8000/api/clients/'+id, {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })
@@ -34,7 +34,7 @@ export class ClientsService {
     });
   }
 
-  public nextLink: string = "http://api.rohitshukla.hexane.co.in/api/clients";
+  public nextLink: string = "http://localhost:8000/api/clients";
   currentLink: string = "";
   async getClients(): Promise<Array<Client>>{
     let token = this.storage.getItem("token");
@@ -59,7 +59,7 @@ export class ClientsService {
   async searchClients(query: string): Promise<Array<Client>>{
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.get('http://api.rohitshukla.hexane.co.in/api/clients/search?q=' + query, {
+      this.httpClient.get('http://localhost:8000/api/clients/search?q=' + query, {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })
@@ -75,14 +75,14 @@ export class ClientsService {
   }
 
   reset(){
-    this.nextLink = "http://api.rohitshukla.hexane.co.in/api/clients";
+    this.nextLink = "http://localhost:8000/api/clients";
     this.currentLink = "";
   }
 
   async putClient(client: Client){
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.post('http://api.rohitshukla.hexane.co.in/api/clients', client, {
+      this.httpClient.post('http://localhost:8000/api/clients', client, {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })
@@ -97,7 +97,7 @@ export class ClientsService {
   async editClient(client: Client){
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.put('http://api.rohitshukla.hexane.co.in/api/clients/'+client.id, client, {
+      this.httpClient.put('http://localhost:8000/api/clients/'+client.id, client, {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })
@@ -112,7 +112,7 @@ export class ClientsService {
   async deleteClient(clientId: number){
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.delete('http://api.rohitshukla.hexane.co.in/api/clients/'+clientId, {
+      this.httpClient.delete('http://localhost:8000/api/clients/'+clientId, {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })

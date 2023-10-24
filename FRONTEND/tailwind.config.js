@@ -3,6 +3,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 module.exports = {
   content: [
     "./src/**/*.{html,ts}",
+    "./node_modules/tw-elements/dist/js/**/*.js"
   ],
   darkMode: 'class',
   theme: {
@@ -291,6 +292,6 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("tw-elements/dist/plugin.cjs")],
 }
 

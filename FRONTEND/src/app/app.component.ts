@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionStorageService } from './services/util/session-storage.service';
+import { Carousel, Dropdown, initTE , Datepicker, Input} from 'tw-elements';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ export class AppComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    initTE({ Carousel, Dropdown, Datepicker, Input });
     this.sessStorage.clear();
   }
 

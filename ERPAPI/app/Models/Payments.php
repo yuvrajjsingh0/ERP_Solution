@@ -16,7 +16,14 @@ class Payments extends Model
         'mode',
         'amount',
         'meta',
-        'package_id'
+        'package_id',
+        'fee',
+        'tax',
+        'total',
+        'late_fee',
+        'from',
+        'to',
+        'due'
     ];
 
     function scopeLatest($query){

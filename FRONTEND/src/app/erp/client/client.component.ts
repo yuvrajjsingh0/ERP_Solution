@@ -8,6 +8,12 @@ import { PackagesService } from 'src/app/services/packages.service';
 import { PaymentsService } from 'src/app/services/payments.service';
 import { SessionStorageService } from 'src/app/services/util/session-storage.service';
 
+import {
+  Datepicker,
+  Input,
+  initTE,
+} from "tw-elements";
+
 @Component({
   selector: 'app-client',
   templateUrl: './client.component.html',
@@ -43,8 +49,13 @@ export class ClientComponent implements OnInit {
 
   // Form models
   mode: string = "";
-  amount: string = "";
+  amount: string = "0";
   meta: string = "";
+  fee: string = "0";
+  tax: string = "0";
+  lateFee: string = "0";
+  amountDue: string = "0";
+  total: string = "0";
 
   editingPayment: Payment | undefined;
 
@@ -59,6 +70,19 @@ export class ClientComponent implements OnInit {
     // }catch(err) {
     //   console.log("err", err);
     // }
+
+    initTE({ Datepicker, Input });
+
+    const confirmDateOnSelect = document.getElementById('datepicker-close-without-confirmation');
+    new Datepicker(confirmDateOnSelect, {
+      confirmDateOnSelect: true,
+    });
+    const confirmDateOnSelect1 = document.getElementById('datepicker-close-without-confirmation1');
+    new Datepicker(confirmDateOnSelect1, {
+      confirmDateOnSelect: true,
+    });
+
+
     this.route.params.subscribe(async (params) => {
       console.log(params);
   
@@ -292,6 +316,14 @@ export class ClientComponent implements OnInit {
         this.deletingRes = -1;
       });
     }
+  }
+
+  updateDue(){
+    this.amountDue = (Number(this.total) - Number(this.amount)) + '';
+  }
+
+  updateTotal(){
+    this.total = (Number(this.fee) + Number(this.lateFee) + Number(this.tax)) + '';
   }
 
 }

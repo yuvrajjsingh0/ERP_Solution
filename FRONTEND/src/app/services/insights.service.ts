@@ -24,7 +24,7 @@ export class InsightsService {
   getTotalNumberOfUsers(): Promise<number>{
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.get('http://api.rohitshukla.hexane.co.in/api/insights/totalNumberOfUsers', {
+      this.httpClient.get('http://localhost:8000/api/insights/totalNumberOfUsers', {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })
@@ -41,7 +41,7 @@ export class InsightsService {
   getTotalPayments(): Promise<number>{
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.get('http://api.rohitshukla.hexane.co.in/api/insights/totalPayments', {
+      this.httpClient.get('http://localhost:8000/api/insights/totalPayments', {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })
@@ -58,7 +58,7 @@ export class InsightsService {
   getPaymentsByWeek(){
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.get('http://api.rohitshukla.hexane.co.in/api/insights/paymentsByWeek', {
+      this.httpClient.get('http://localhost:8000/api/insights/paymentsByWeek', {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })
@@ -75,7 +75,7 @@ export class InsightsService {
   getPaymentsByMonth(){
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.get('http://api.rohitshukla.hexane.co.in/api/insights/paymentsByMonth', {
+      this.httpClient.get('http://localhost:8000/api/insights/paymentsByMonth', {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })

@@ -16,7 +16,7 @@ export class WorkerPayoutsService {
   async getWorkerPayouts(): Promise<Array<WorkerPayout>>{
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.get('http://api.rohitshukla.hexane.co.in/api/worker-payouts', {
+      this.httpClient.get('http://localhost:8000/api/worker-payouts', {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })
@@ -34,7 +34,7 @@ export class WorkerPayoutsService {
   async getWorkerPayoutsByWorker(worker: string = ''): Promise<Array<WorkerPayout>>{
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.get('http://api.rohitshukla.hexane.co.in/api/worker-payouts?worker='+worker, {
+      this.httpClient.get('http://localhost:8000/api/worker-payouts?worker='+worker, {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })
@@ -49,7 +49,7 @@ export class WorkerPayoutsService {
   async putWorkerPayout(workerPayout: WorkerPayout){
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.post('http://api.rohitshukla.hexane.co.in/api/worker-payouts', workerPayout, {
+      this.httpClient.post('http://localhost:8000/api/worker-payouts', workerPayout, {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })
@@ -64,7 +64,7 @@ export class WorkerPayoutsService {
   async editWorkerPayout(workerPayout: WorkerPayout){
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.put('http://api.rohitshukla.hexane.co.in/api/worker-payouts/'+workerPayout.id, workerPayout, {
+      this.httpClient.put('http://localhost:8000/api/worker-payouts/'+workerPayout.id, workerPayout, {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })
@@ -79,7 +79,7 @@ export class WorkerPayoutsService {
   async deleteWorkerPayout(workerPayoutId: number){
     let token = this.storage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.httpClient.delete('http://api.rohitshukla.hexane.co.in/api/worker-payouts/'+workerPayoutId, {
+      this.httpClient.delete('http://localhost:8000/api/worker-payouts/'+workerPayoutId, {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token
         })

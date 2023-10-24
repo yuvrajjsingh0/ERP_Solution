@@ -24,6 +24,13 @@ class PaymentsController extends Controller
         $payment->amount = $request->amount;
         $payment->meta = $request->meta;
         $payment->package_id = $request->package_id;
+        $payment->fee = $request->fee;
+        $payment->tax = $request->tax;
+        $payment->total = $request->total;
+        $payment->late_fee = $request->late_fee;
+        $payment->from = $request->from;
+        $payment->to = $request->to;
+        $payment->due = $request->due;
         $payment->save();
 
         return response()->json([
@@ -51,6 +58,13 @@ class PaymentsController extends Controller
             $payment->amount = is_null($request->amount) ? $payment->amount : $request->amount;
             $payment->meta = is_null($request->meta) ? $payment->meta : $request->meta;
             $payment->package_id = is_null($request->package_id) ? $payment->package_id : $request->package_id;
+            $payment->fee = is_null($request->fee) ? $payment->fee : $request->fee;
+            $payment->tax = is_null($request->tax) ? $payment->tax : $request->tax;
+            $payment->total = is_null($request->total) ? $payment->total : $request->total;
+            $payment->late_fee = is_null($request->late_fee) ? $payment->late_fee : $request->late_fee;
+            $payment->from = is_null($request->from) ? $payment->from : $request->from;
+            $payment->to = is_null($request->to) ? $payment->to : $request->to;
+            $payment->due = is_null($request->due) ? $payment->due : $request->due;
             $payment->save();
 
             return response()->json([
