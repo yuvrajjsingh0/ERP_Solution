@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    initTE({ Carousel, Dropdown, Datepicker, Input });
+    //initTE({ Carousel, Dropdown, Datepicker, Input });
     this.sessStorage.clear();
   }
 

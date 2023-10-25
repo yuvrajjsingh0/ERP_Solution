@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { from } from 'rxjs';
 import Client from 'src/app/models/Client';
 import Package from 'src/app/models/Package';
 import Payment from 'src/app/models/Payment';
@@ -56,6 +57,8 @@ export class ClientComponent implements OnInit {
   lateFee: string = "0";
   amountDue: string = "0";
   total: string = "0";
+  from: string  = "";
+  to: string = "";
 
   editingPayment: Payment | undefined;
 
@@ -71,12 +74,14 @@ export class ClientComponent implements OnInit {
     //   console.log("err", err);
     // }
 
-    initTE({ Datepicker, Input });
+    initTE({ Datepicker, Input }, { allowReinits: true });
 
     const confirmDateOnSelect = document.getElementById('datepicker-close-without-confirmation');
     new Datepicker(confirmDateOnSelect, {
       confirmDateOnSelect: true,
     });
+    // new Input(document.getElementById('floatingInput'));
+    // new Input(document.getElementById('floatingInput1'));
     const confirmDateOnSelect1 = document.getElementById('datepicker-close-without-confirmation1');
     new Datepicker(confirmDateOnSelect1, {
       confirmDateOnSelect: true,
@@ -156,6 +161,13 @@ export class ClientComponent implements OnInit {
   }
 
   savePayment(){
+
+    console.log("From", this.from, "to", this.to);
+    if(this.from == '' || this.from == undefined || this.to == '' || this.to == undefined){
+      this.formErrors[2] = "Please select dates";
+      return;
+    }
+
     this.formErrors = ['', '', ''];
     if(this.mode == '' || this.mode == undefined){
       this.formErrors[0] = "Please enter payment mode";
@@ -166,23 +178,42 @@ export class ClientComponent implements OnInit {
       this.formErrors[1] = "Please enter payment amount";
       return;
     }
+    console.log("From", this.from, "to", this.to);
+    if(this.from == '' || this.from == undefined || this.to == '' || this.to == undefined){
+      this.formErrors[2] = "Please select dates";
+      return;
+    }
 
     if(!this.isEditing){
       this.addNewPayment();
     }else{
       this.editPaymentSave();
     }
+    
   }
 
   addNewPayment(){
     this.isSaving = true;
+
+    const datePartsFrom = this.from.split("/");
+    const datePartsTo = this.to.split("/");
+
+    const dateFrom = new Date(+datePartsFrom[2], Number(datePartsFrom[1]) - 1, +datePartsFrom[0]);
+    const dateTo = new Date(+datePartsTo[2], Number(datePartsTo[1]) - 1, +datePartsTo[0]);
 
     let payment: Payment = {
       mode: this.mode,
       amount: Number(this.amount),
       client_id: this.client?.id ?? -1,
       package_id: this.client?.package_id ?? -1,
-      meta: this.meta ?? ''
+      meta: this.meta ?? '',
+      fee: Number(this.fee) ?? 0,
+      tax: Number(this.tax) ?? 0,
+      total: Number(this.total) ?? 0,
+      late_fee: Number(this.lateFee) ?? 0,
+      from: dateFrom.getTime() + '',
+      to: dateTo.getTime() + '',
+      due: Number(this.amountDue) ?? 0,
     };
 
     this.paymentsService.putPayment(payment).then((res:any) => {
@@ -203,6 +234,13 @@ export class ClientComponent implements OnInit {
       this.mode = "";
       this.amount = "";
       this.meta = "";
+      this.fee = "0";
+      this.tax = "0";
+      this.lateFee = "0";
+      this.amountDue = "0";
+      this.total = "0";
+      this.from = "";
+      this.to = "";
       console.log(res);
     }).catch(err => {
       this.alert.status = 1;
@@ -222,13 +260,25 @@ export class ClientComponent implements OnInit {
 
   editPaymentSave() {
     this.isSaving = true;
+    const datePartsFrom = this.from.split("/");
+    const datePartsTo = this.to.split("/");
+
+    const dateFrom = new Date(+datePartsFrom[2], Number(datePartsFrom[1]) - 1, +datePartsFrom[0]);
+    const dateTo = new Date(+datePartsTo[2], Number(datePartsTo[1]) - 1, +datePartsTo[0]);
     let payment: Payment = {
       id: this.editingPayment?.id,
       mode: this.mode,
       amount: Number(this.amount),
       meta: this.meta ?? '',
       client_id: this.editingPayment?.client_id ?? -1,
-      package_id: this.editingPayment?.package_id ?? -1
+      package_id: this.editingPayment?.package_id ?? -1,
+      fee: Number(this.fee) ?? 0,
+      tax: Number(this.tax) ?? 0,
+      total: Number(this.total) ?? 0,
+      late_fee: Number(this.lateFee) ?? 0,
+      from: dateFrom.getTime() + '',
+      to: dateTo.getTime() + '',
+      due: Number(this.amountDue) ?? 0,
     };
     this.paymentsService.editPayment(payment).then((res:any) => {
       this.alert.status = 1;
@@ -251,6 +301,13 @@ export class ClientComponent implements OnInit {
       this.mode = "";
       this.amount = "";
       this.meta = "";
+      this.fee = "0";
+      this.tax = "0";
+      this.lateFee = "0";
+      this.amountDue = "0";
+      this.total = "0";
+      this.from = "";
+      this.to = "";
       console.log(res);
     }).catch(err => {
       this.alert.status = 1;
@@ -269,6 +326,13 @@ export class ClientComponent implements OnInit {
       this.mode = "";
       this.amount = "";
       this.meta = "";
+      this.fee = "0";
+      this.tax = "0";
+      this.lateFee = "0";
+      this.amountDue = "0";
+      this.total = "0";
+      this.from = "";
+      this.to = "";
       console.log(err);
     });
   }
@@ -281,6 +345,15 @@ export class ClientComponent implements OnInit {
     this.mode = payment.mode;
     this.amount = payment.amount + '';
     this.meta = payment.meta ?? '';
+    this.fee = (payment.fee) + '' ?? '0';
+    this.tax = (payment.tax) + ''  ?? '0';
+    this.total = (payment.total)  + '' ?? '0';
+    this.lateFee = (payment.late_fee) + ''  ?? '0';
+    this.from = (payment.from)? (new Date(+payment.from).getDate() + '/' + (1+ new Date(+payment.from).getMonth()) + 
+      '/' + new Date(+payment.from).getFullYear()) : '';
+    this.to = (payment.to)? (new Date(+payment.to).getDate() + '/' + (1+ new Date(+payment.to).getMonth()) + 
+      '/' + new Date(+payment.to).getFullYear()) : '';
+    this.amountDue = (payment.due) + ''  ?? '0';
   }
 
   delete(event: string){

@@ -7,6 +7,15 @@ export default interface Payment{
     mode: string;
     amount?: number;
     meta?: string;
+
+    fee?: number;
+    tax?: number;
+    total?: number;
+    late_fee?: number;
+    from?: string;
+    to?: string;
+    due?: number;
+
     package_id?: number;
     created_at?: String;
     updated_at?: String;

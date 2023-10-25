@@ -65,10 +65,15 @@
                     <div
                       class="relative mb-3"
                       id="datepicker-close-without-confirmation"
+                      data-te-inline="true"
                       data-te-input-wrapper-init>
                       <input
                         type="text"
+                        [(ngModel)]="from"
                         id="floatingInput"
+                        name="from"
+                        aria-placeholder="dd/mm/yyyy"
+                        [class]="(formErrors[2] != '') ? 'border-red-500' : ''" 
                         class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
                         placeholder="Select start date" />
                       <label
@@ -83,10 +88,14 @@
                     <div
                       class="relative mb-3"
                       id="datepicker-close-without-confirmation1"
+                      data-te-inline="true"
                       data-te-input-wrapper-init>
                       <input
                         type="text"
+                        [(ngModel)]="to"
                         id="floatingInput1"
+                        name="to"
+                        [class]="(formErrors[2] != '') ? 'border-red-500' : ''" 
                         class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
                         placeholder="Select a date" />
                       <label
@@ -97,6 +106,11 @@
                     </div>
                   </div>
                 </div>
+                <p class="text-red-500 text-xs italic" *ngIf="formErrors[2] != ''">{{formErrors[2]}}</p>
+              </div>
+
+              <div class="mb-4 col-span-8">
+                <p class="text-red-500 text-xs italic" *ngIf="this.from == '' || this.from == undefined || this.to == '' || this.to == undefined">Date Format: dd/mm/yyyy, tap calendar icon to select dates</p>
               </div>
 
 
@@ -105,8 +119,8 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="meta">
                   Meta
                 </label>
-                <input [(ngModel)]="meta" name="meta" [class]="(formErrors[2] != '') ? 'border-red-500' : ''" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="meta" type="text" placeholder="Meta Data">
-                <p class="text-red-500 text-xs italic">{{formErrors[2]}}</p>
+                <input [(ngModel)]="meta" name="meta" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="meta" type="text" placeholder="Meta Data">
+                
               </div>
             </form>
         </div>
