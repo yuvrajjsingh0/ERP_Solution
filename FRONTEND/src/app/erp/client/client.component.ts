@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { from } from 'rxjs';
 import Client from 'src/app/models/Client';
 import Package from 'src/app/models/Package';
@@ -27,7 +27,8 @@ export class ClientComponent implements OnInit {
     private clientsService: ClientsService,
     private packageService: PackagesService,
     private paymentsService: PaymentsService,
-    private sessStorage: SessionStorageService
+    private sessStorage: SessionStorageService,
+    private router: Router
   ){}
 
   contentLoaded: number = 20;
@@ -397,6 +398,14 @@ export class ClientComponent implements OnInit {
 
   updateTotal(){
     this.total = (Number(this.fee) + Number(this.lateFee) + Number(this.tax)) + '';
+  }
+
+  navigateToPayment(payment: Payment){
+    this.router.navigate(['/erp/payment'], { state: {
+      payment: payment,
+      package: this.package,
+      client: this.client
+    }});
   }
 
 }

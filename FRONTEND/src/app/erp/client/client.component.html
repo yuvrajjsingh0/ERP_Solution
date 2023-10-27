@@ -237,16 +237,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let payment of payments">
-          <td class="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+        <tr *ngFor="let payment of payments" style="cursor: pointer;">
+          <td class="border-b border-[#eee] py-5 px-4 dark:border-strokedark" (click)="navigateToPayment(payment)">
             <p class="text-black dark:text-white">₹ {{payment.amount}}</p>
           </td>
-          <td class="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+          <td class="border-b border-[#eee] py-5 px-4 dark:border-strokedark" (click)="navigateToPayment(payment)">
             <p class="inline-flex rounded-full bg-success bg-opacity-10 py-1 px-3 text-sm font-medium text-success">
               {{payment.package?.name ?? payment.package}}
             </p>
           </td>
-          <td class="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+          <td class="border-b border-[#eee] py-5 px-4 dark:border-strokedark" (click)="navigateToPayment(payment)">
               <p class="text-black dark:text-white">{{payment.mode}}</p>
           </td>
           <td class="border-b border-[#eee] py-5 px-4 dark:border-strokedark">

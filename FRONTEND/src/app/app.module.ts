@@ -19,6 +19,7 @@ import { ClientComponent } from './erp/client/client.component';
 import { AuthGuard } from './services/auth.guard';
 import { NumberToKPipe } from './pipes/number-to-k.pipe';
 import { WorkerPayoutsComponent } from './erp/worker-payouts/worker-payouts.component';
+import { PaymentComponent } from './erp/payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { WorkerPayoutsComponent } from './erp/worker-payouts/worker-payouts.comp
     ClientComponent,
     NumberToKPipe,
     WorkerPayoutsComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,
